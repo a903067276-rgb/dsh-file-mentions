@@ -1,0 +1,7 @@
+# dsh-file-mentions bundle patch：向 web 组合挂载 dsh-file-mentions。
+# host 半（/api/file-mentions/* 路由）与 client 半（__ModuleLoader__ UI）都由官方
+# bundle 流程解析，无需手动双 entry。
+# 经 `dsh plugin --profile web add "github:a903067276-rgb/dsh-file-mentions#main"` 安装。
+- insert:
+    - id: file-mentions
+      name: dsh-file-mentions
