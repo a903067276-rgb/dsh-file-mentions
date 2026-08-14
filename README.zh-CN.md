@@ -1,5 +1,9 @@
 # dsh-file-mentions 📎
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 **回复里提到的文件/路径，点一下就打开** —— DeepSeek Harness（DSH）web 插件，Codex 式体验。
 
 回复正文里反引号包着的路径（`~/...`、绝对路径、相对路径、中文路径）**直接点击就能打开**；

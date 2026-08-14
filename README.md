@@ -1,5 +1,9 @@
 # dsh-file-mentions 📎
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
+![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
+
 **Clickable file paths in DSH replies** — a DeepSeek Harness (DSH) web plugin with a Codex-style experience.
 
 Inline paths wrapped in backticks (`` `~/...` ``, absolute, relative, or Chinese paths) become
