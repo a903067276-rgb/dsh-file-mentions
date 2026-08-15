@@ -6,6 +6,10 @@
 
 **Clickable file paths in DSH replies** — a DeepSeek Harness (DSH) web plugin with a Codex-style experience.
 
+## Screenshot
+
+![dsh-file-mentions in action](assets/screenshot.png)
+
 Inline paths wrapped in backticks (`` `~/...` ``, absolute, relative, or Chinese paths) become
 **click-to-open**; each clickable path carries a small 📂 button that reveals the file in your
 file manager; a "📎 mentioned files" chip list at the turn tail covers the rest. URLs are
