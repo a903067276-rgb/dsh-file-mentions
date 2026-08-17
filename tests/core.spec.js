@@ -54,6 +54,7 @@ test('shouldSkipPathNode: skips composer/input text nodes', () => {
     '[data-input-backdrop]',
     '[data-composer-card]',
     '[class$="_input"]',
+    '[data-conversation-scroll]',
   ];
   for (const selector of cases) {
     assert.equal(
