@@ -19,7 +19,7 @@
 │       死，无法扩展，故走 DOM 委托（唯一可行路径）                    │
 │  ④ 正文 📂 按钮 MutationObserver 动态补插                            │
 │     · 每个"像路径的裸 code"后面插小按钮 → POST /open mode=reveal     │
-│     · React 重渲染会清掉按钮，观察器自动补插（dataset.fmDone 防重复）│
+│     · React 重渲染会清掉按钮，观察器自动补插（dataset.fmBtn 防重复）│
 └──────────────────────────────────┬───────────────────────────────────┘
                                    │ fetch (同源 /api/...)
 ┌──────────────────────────────────▼───────────────────────────────────┐
@@ -51,8 +51,9 @@
    必须自己写 host 路由。
 5. 官方产物按钮 DOM = `<code><button>`、URL = `<a>`、代码块 = `<pre><code>`
    → 点击委托按 `closest` 精确跳过，只处理裸 `<code>`。
-6. 动态插件宿主环境（cordis_define）**无 Buffer / 无 process**：readBody 用
-   TextDecoder、`~/` 展开交给 bash `$HOME`、系统命令走 `shell` 服务。
+6. 静态 bundle 宿主环境**可用完整 Node API**：readBody 用 `Buffer.concat`
+   （带 maxBytes 上限）、平台判断走 `process.platform`、系统打开用 `execFile`
+   直传参数不经 shell（路径安全）。
 
 ## 事件流（一轮回复）
 
