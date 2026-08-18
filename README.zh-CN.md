@@ -7,7 +7,8 @@
 **回复里提到的文件/路径，点一下就打开** —— DeepSeek Harness（DSH）web 插件，Codex 式体验。
 
 *非官方项目：社区成员独立开发维护，非 DeepSeek 官方产品。*
-## 效果截图
+
+## 截图
 
 ![dsh-file-mentions 效果](assets/screenshot.png)
 
@@ -15,7 +16,7 @@
 每个可点路径后面自动带一个文件夹图标小按钮，进文件管理器定位；回复尾部还有"📎 提到的文件"
 小圆钮兜底。URL 链接由官方渲染器自动可点，无需本插件处理。
 
-## 功能一览
+## 功能
 
 | 位置 | 操作 | 效果 |
 |---|---|---|
@@ -30,21 +31,19 @@
 
 ## 安装
 
-### 官方 bundle 一行安装（推荐）
+本仓库是官方 **bundle 插件**格式（根 `package.json` 的 `dsh.bundle` + `dsh.client`），
+经官方 profile 管理一行安装：
 
 ```sh
 dsh plugin --profile web add "github:a903067276-rgb/dsh-file-mentions#main"
 ```
 
-重启 `dsh web` 生效。需要 pnpm（`dsh plugin` 是 pnpm 转发器）。
+装完**重启 `dsh web`**（bundle 层在启动时合成，热更新无效）。需要 pnpm
+（`dsh plugin` 是 pnpm 转发器）。
 
-### 手动挂载（兜底）
+手动挂载兜底：见 [docs/install.md](docs/install.md)。
 
-详见 [docs/install.md](docs/install.md)：软链到
-`~/.dsh/profiles/web/node_modules/` + `~/.dsh/cordis.patch.yml` 单 entry
-（本插件单 entry 即可，双 entry 会重复注册路由崩溃），重启生效。
-
-## 使用
+## 用法
 
 agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触发正文点击。
 尾部列表自动出现，无需配置。
@@ -54,7 +53,14 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 | 平台 | 状态 |
 |---|---|
 | macOS | ✅ 全功能实测（含中文路径） |
-| Linux / Windows | ⚠️ 未实测，架构上预期可用（命令分流与路径解析已实现） |
+| Linux | ⚠️ 未实测；架构上预期可用（命令分流与路径解析已实现） |
+| Windows | ⚠️ 未实测；架构上预期可用（命令分流与路径解析已实现） |
+
+## 环境要求
+
+- DSH web（`npx @deepseek-ai/dsh web` 启动）
+- 纯 Node 标准库实现，无运行时依赖
+- 打开文件调用系统默认应用 / 文件管理器（按平台分流命令）
 
 ## 工作原理
 
@@ -68,6 +74,12 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 
 详见 [docs/architecture.md](docs/architecture.md)。
 
+## 注意事项
+
+- bundle 安装与手动挂载**二选一**，不要同时用。
+- 手动挂载时 `~/.dsh/cordis.patch.yml` 只加**单 entry**；双 entry 会让插件应用两次、
+  路由重复注册崩溃。
+
 ## 兼容性说明
 
 - 正文可点依赖"反引号包裹的路径"（与 Codex 一致的 agent 输出惯例）；裸路径正文
@@ -75,6 +87,6 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 - 官方"产物"列表与本插件互不打架：官方有产出时优先，无产出时本插件显示。
 - Windows / Linux 欢迎实测后提交 issue/PR 补充验证。
 
-## License
+## 许可证
 
-MIT
+[MIT](LICENSE)

@@ -7,6 +7,7 @@
 **Clickable file paths in DSH replies** — a DeepSeek Harness (DSH) web plugin with a Codex-style experience.
 
 *Unofficial project: independently developed and maintained by a community member, not an official DeepSeek product.*
+
 ## Screenshot
 
 ![dsh-file-mentions in action](assets/screenshot.png)
@@ -31,20 +32,17 @@ paths in macOS / Linux / Windows forms. Non-existent paths silently do nothing.
 
 ## Install
 
-### Official bundle install (recommended)
+This repository is an official **bundle plugin** (`dsh.bundle` + `dsh.client` in the root
+`package.json`), installed through the official profile manager:
 
 ```sh
 dsh plugin --profile web add "github:a903067276-rgb/dsh-file-mentions#main"
 ```
 
-Restart `dsh web`. Requires pnpm on PATH (`dsh plugin` forwards to pnpm).
+Then **restart `dsh web`** (bundle layers are composed at startup; HMR does not apply).
+Requires `pnpm` on PATH (`dsh plugin` forwards to pnpm).
 
-### Manual mount (fallback)
-
-See [docs/install.md](docs/install.md): symlink into
-`~/.dsh/profiles/web/node_modules/` plus a **single entry** in `~/.dsh/cordis.patch.yml`
-(a double entry makes the plugin apply twice and crash on duplicate route registration),
-then restart.
+Manual mount fallback: see [docs/install.md](docs/install.md).
 
 ## Usage
 
@@ -55,8 +53,15 @@ inline. The tail chip list appears automatically — no configuration.
 
 | Platform | Status |
 |---|---|
-| macOS | ✅ fully tested (incl. Chinese paths) |
-| Linux / Windows | ⚠️ not tested; expected to work (command branching and path parsing implemented) |
+| macOS | ✅ Fully tested (incl. Chinese paths) |
+| Linux | ⚠️ Not tested — expected to work (command branching and path parsing implemented) |
+| Windows | ⚠️ Not tested — expected to work (command branching and path parsing implemented) |
+
+## Requirements
+
+- DSH web (run with `npx @deepseek-ai/dsh web`)
+- Pure Node stdlib — no runtime dependencies
+- Opening files uses the system default app / file manager (per-platform command branching)
 
 ## How it works
 
@@ -72,6 +77,12 @@ inline. The tail chip list appears automatically — no configuration.
 
 See [docs/architecture.md](docs/architecture.md).
 
+## Notes
+
+- Use either the official bundle install or the manual mount — never both.
+- Manual mounting needs a **single entry** in `~/.dsh/cordis.patch.yml`; a double entry
+  applies the plugin twice and crashes on duplicate route registration.
+
 ## Compatibility notes
 
 - Inline clicks rely on backtick-wrapped paths (the agent-output convention, same as
@@ -82,4 +93,4 @@ See [docs/architecture.md](docs/architecture.md).
 
 ## License
 
-MIT
+[MIT](LICENSE)
