@@ -6,6 +6,7 @@
 
 **回复里提到的文件/路径，点一下就打开** —— DeepSeek Harness（DSH）web 插件，Codex 式体验。
 
+*非官方项目：社区成员独立开发维护，非 DeepSeek 官方产品。*
 ## 效果截图
 
 ![dsh-file-mentions 效果](assets/screenshot.png)

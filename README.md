@@ -6,6 +6,7 @@
 
 **Clickable file paths in DSH replies** — a DeepSeek Harness (DSH) web plugin with a Codex-style experience.
 
+*Unofficial project: independently developed and maintained by a community member, not an official DeepSeek product.*
 ## Screenshot
 
 ![dsh-file-mentions in action](assets/screenshot.png)
