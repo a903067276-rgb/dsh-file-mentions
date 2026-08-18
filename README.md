@@ -11,7 +11,7 @@
 ![dsh-file-mentions in action](assets/screenshot.png)
 
 Inline paths wrapped in backticks (`` `~/...` ``, absolute, relative, or Chinese paths) become
-**click-to-open**; each clickable path carries a small 📂 button that reveals the file in your
+**click-to-open**; each clickable path carries a small folder-icon button that reveals the file in your
 file manager; a "📎 mentioned files" chip list at the turn tail covers the rest. URLs are
 already auto-linked by the official renderer, so this plugin leaves them alone.
 
@@ -20,9 +20,9 @@ already auto-linked by the official renderer, so this plugin leaves them alone.
 | Where | What | Effect |
 |---|---|---|
 | Inline path text | click | Open with default app / open directory |
-| 📂 after inline path | click | Reveal in file manager (macOS Finder) |
+| folder icon after inline path | click | Reveal in file manager |
 | "📎 mentioned files" chip | click name | Preview content inside DSH |
-| 📂 in the chip list | click | Reveal in file manager |
+| folder icon in the chip list | click | Reveal in file manager |
 | Inline URL | click | Browser opens it (official autolink) |
 
 Supports `~/` expansion, relative paths (resolved against the session cwd), and absolute
@@ -66,7 +66,7 @@ inline. The tail chip list appears automatically — no configuration.
   reply → publishes them to turn data → the tail list filters non-existent paths before
   rendering; inline clicks use a **document-level click delegation** (the official render
   entry is occupied by the official "deliverables" plugin, so DOM delegation is the only
-  viable path); inline 📂 buttons are inserted by a MutationObserver and restored
+  viable path); inline folder-icon buttons are inserted by a MutationObserver and restored
   automatically after React re-renders.
 
 See [docs/architecture.md](docs/architecture.md).
