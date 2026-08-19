@@ -4,6 +4,8 @@
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)
 
+[![Awesome DSH Plugin](https://awesome-dsh-plugin.com/badge.svg)](https://awesome-dsh-plugin.com)
+
 **Clickable file paths in DSH replies** — a DeepSeek Harness (DSH) web plugin with a Codex-style experience.
 
 *Unofficial project: independently developed and maintained by a community member, not an official DeepSeek product.*
