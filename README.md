@@ -19,6 +19,12 @@ Inline paths wrapped in backticks (`` `~/...` ``, absolute, relative, or Chinese
 file manager; a "📎 mentioned files" chip list at the turn tail covers the rest. URLs are
 already auto-linked by the official renderer, so this plugin leaves them alone.
 
+![External-drive whitelist settings](assets/screenshot-settings.png)
+
+The external-drive whitelist (Settings → Plugins → file-mentions): paths outside the session
+working directory (external drives, `~/Desktop`, etc.) become clickable once added — one path
+per line. System-disk marker directories (`/System`, `/etc`) are rejected automatically.
+
 ## Features
 
 | Where | What | Effect |
