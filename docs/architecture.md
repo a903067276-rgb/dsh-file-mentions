@@ -28,13 +28,39 @@
 │     { sessionId, paths[] } → { valid[] }                              │
 │     按会话 cwd 解析：~/ 展开 homedir、相对路径 resolve(cwd, p)、       │
 │     绝对路径 isAbsolute（兼容 Windows 盘符）                          │
+│     探测面（P1）：绝对/~ 路径只在本会话 cwd 内或白名单根内 existsSync │
 │  POST /api/file-mentions/open   系统打开（execFile，不经 shell）      │
 │     { sessionId, path, mode } → { ok }                                │
 │     mode "open"（默认）：文件默认应用打开 / 目录打开窗口               │
 │     mode "reveal"：Finder 定位选中 / 目录打开窗口                     │
 │     平台分流：macOS open / Windows explorer / Linux xdg-open          │
+│     绝对/~ 路径与 /check 同口径（cwd 内或白名单根内，越界拒绝）        │
+│  GET/POST /api/file-mentions/config  外置盘白名单读写（设置页用）      │
+│     isSameOrigin 校验（Origin/Host 必须本机，防本地 CSRF）            │
 └───────────────────────────────────────────────────────────────────────┘
 ```
+
+## 外置盘白名单（extraProbeRoots，v1.0.4）
+
+背景：外置盘（/Volumes/USB 等）内绝对路径在 fm 里"不显示不可点"——/check 只认会话
+cwd。"盲放 /Volumes"方案被否：系统装外接盘时 /Volumes 下就是完整系统盘 = oracle 洞。
+
+设计（用户声明 = 授权，同 perm-guard trustedDirs 哲学）：
+
+- 配置入口是**设置页**（settings.section + settings.plugin.item 双注册，共用
+  SettingsCard），值存官方 settings 服务（`settingsNamespace('file-mentions')` +
+  `z.object({ extraProbeRoots: z.array(z.string()) })`），**每次请求现读** →
+  保存即生效，无需重启，默认空 = 现状安全行为。不碰 patch.yml。
+- `isProbeable(abs, cwd, roots)`：cwd 内 → 可探测；白名单根内 → 再过两道闸：
+  ① 系统盘保护（根下存在 `/System` 或 `/etc`，win32 为 `\Windows` → 拒绝该根，
+  一次性 warn 日志；配 `/` 也会自动被拒）；② symlink 防逃逸（`realpathSync` 后
+  仍须在根内）。单根失败不影响其他根。
+- /open 的 resolveFirst 绝对分支与 /check 同口径（v1.0.4 新增收紧：此前绝对路径
+  无越界检查，任何存在路径可开）。副作用：`~/` 指向 cwd 外的路径不再可开，
+  加白名单即恢复。多会话兜底不受影响（client 遍历所有 sessionId，各会话按自己
+  cwd 判定）。
+- client 端零改动即可让白名单路径可点：/Volumes/... 不被 client isAbs 正则识别，
+  但 robustOpen 把原始路径原样发 host，host 的 isAbsolute 识别 + 白名单放行。
 
 ## 关键决策与坑（源码级查证）
 

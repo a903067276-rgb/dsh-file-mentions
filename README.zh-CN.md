@@ -50,6 +50,15 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-file-mentions#main"
 agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触发正文点击。
 尾部列表自动出现，无需配置。
 
+### 会话目录之外的路径（外置盘等）
+
+出于安全考虑，绝对/`~/` 路径只在**当前会话工作目录内**做存在性探测。要让外置盘
+（如 `/Volumes/U盘名`）或其它工作目录之外的路径可显示、可点击打开，把它加进
+**外置盘白名单**：设置 → 插件 → 文件提及（每行一个目录）。保存立即生效，无需重启。
+
+系统盘保护：白名单根下若检测到系统特征目录（`/System`、`/etc`，Windows 为
+`\Windows`），该根会被自动拒绝——误把整块系统盘加进白名单也开不了门。
+
 ## 平台支持
 
 | 平台 | 状态 |
@@ -61,18 +70,23 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 ## 环境要求
 
 - DSH web（`npx @deepseek-ai/dsh web` 启动）
-- 纯 Node 标准库实现，无运行时依赖
+- 纯 Node 标准库实现；peer 依赖（`@deepseek-ai/dsh-settings`、`@deepseek-ai/schemastery`）
+  由宿主提供
 - 打开文件调用系统默认应用 / 文件管理器（按平台分流命令）
 
 ## 工作原理
 
-- **Host**（`lib/index.js`）：两条路由 —— `/api/file-mentions/check`（存在性验证）、
-  `/api/file-mentions/open`（系统打开，`mode: open/reveal`，平台命令分流）；
+- **Host**（`lib/index.js`）：三条路由 —— `/api/file-mentions/check`（存在性验证）、
+  `/api/file-mentions/open`（系统打开，`mode: open/reveal`，平台命令分流）、
+  `/api/file-mentions/config`（白名单读写，设置页用，同源校验防 CSRF）。
+  探测面：绝对/`~/` 路径只在本会话 cwd 内或用户声明的白名单根内探测（白名单走官方
+  settings 服务，保存即生效、无需重启）；白名单根带系统盘保护与 symlink 防逃逸。
   全部 Node 标准库，`execFile` 不经 shell 防注入。
 - **Client**（`lib/client.js`）：conversationEvents 收集器提取每轮回复里的路径 →
   发布到回合数据 → 尾部列表渲染前先过滤不存在的路径；正文可点用 **document 点击委托**
   （官方渲染入口被官方"产物"插件占用，无法扩展，这是唯一可行路径）；正文文件夹图标按钮用
-  MutationObserver 动态补插，React 重渲染自动恢复。
+  MutationObserver 动态补插，React 重渲染自动恢复；设置卡片（侧边栏分区 + 插件页）
+  编辑白名单。
 
 详见 [docs/architecture.md](docs/architecture.md)。
 

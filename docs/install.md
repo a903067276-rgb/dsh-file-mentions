@@ -56,6 +56,25 @@ dsh plugin --profile web add "github:a903067276-rgb/dsh-file-mentions#main"
   - 点路径后面的 📂 → 在文件管理器中定位（macOS Finder）；
   - 回复尾部出现"📎 提到的文件"小圆钮（存在性校验通过后）。
 
+## 配置外置盘白名单（可选）
+
+会话工作目录之外的路径（外置盘 `/Volumes/U盘名`、`~/Desktop` 等）默认**不可探测**
+（不显示、不可点——安全设计，防 oracle 探测面）。需要放开时：
+
+1. 打开 DSH 设置 → 插件 → **文件提及**（或侧边栏"文件提及"分区）；
+2. 每行填一个目录，例如：
+
+   ```text
+   /Volumes/U盘名
+   ~/Desktop
+   ```
+
+3. 点**保存**，立即生效、无需重启（配置存官方 settings 服务，重启后保留）。
+
+**系统盘保护**：白名单根下若存在系统特征目录（`/System`、`/etc`，Windows 为
+`\Windows`）会被自动拒绝（拒绝时 dsh web 日志有一行 warn）——误把系统盘加进
+白名单也开不了门。
+
 ## 卸载
 
 - bundle 安装：`dsh plugin --profile web remove dsh-file-mentions`，重启 `dsh web`。
