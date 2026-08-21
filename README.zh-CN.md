@@ -75,6 +75,7 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 ## 环境要求
 
 - DSH web（≥ 0.1.0-rc.7）（`npx @deepseek-ai/dsh web` 启动）
+- 铁了心用 rc.6 的用户：请安装冻结 tag：`dsh plugin add github:a903067276-rgb/dsh-file-mentions#rc6-compat`（不再维护，强烈建议升级 rc.7+）
 - 纯 Node 标准库实现；peer 依赖（`@deepseek-ai/dsh-settings`、`@deepseek-ai/schemastery`）
   由宿主提供
 - 打开文件调用系统默认应用 / 文件管理器（按平台分流命令）
