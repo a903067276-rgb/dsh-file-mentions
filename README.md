@@ -79,7 +79,7 @@ externally can never be whitelisted by mistake.
 
 ## Requirements
 
-- DSH web >= 0.1.0-rc.7 (run with `npx @deepseek-ai/dsh web`)
+- DSH web 0.1.0-rc.6 ONLY (frozen compat branch, no longer maintained; use >= 0.1.0-rc.7 for the maintained version) (run with `npx @deepseek-ai/dsh web`)
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host
 - Opening files uses the system default app / file manager (per-platform command branching)
