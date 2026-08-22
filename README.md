@@ -80,10 +80,13 @@ externally can never be whitelisted by mistake.
 ## Requirements
 
 - DSH web >= 0.1.0-rc.6 (run with `npx @deepseek-ai/dsh web`)
-- **Version compatibility**: 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2) — install `main`. The settings card satisfies both the rc.6 (`id`) and rc.7+ (`key`) contracts via the dual-field registration; the `rc6-compat` tag is retired (kept only as a historical tag).
+- **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2, **not guaranteed on every DSH version**):
+  - DSH 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2): try `main` (default).
+  - Conservative fallbacks (the last pre-0.1.1 build): DSH 0.1.0-rc.7/rc.8 → `v1.0.8` (`dsh plugin add github:a903067276-rgb/dsh-file-mentions#v1.0.8`); DSH 0.1.0-rc.6 → frozen `rc6-compat` tag (no maintenance).
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host
 - Opening files uses the system default app / file manager (per-platform command branching)
+- **Maintenance policy**: this plugin keeps evolving with the latest DSH releases; compatibility with older DSH versions is best-effort only and not guaranteed going forward.
 
 ## How it works
 
