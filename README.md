@@ -79,8 +79,8 @@ externally can never be whitelisted by mistake.
 
 ## Requirements
 
-- DSH web >= 0.1.0-rc.7 (run with `npx @deepseek-ai/dsh web`)
-- **rc.6 users:** install the frozen `rc6-compat` tag instead: `dsh plugin add github:a903067276-rgb/dsh-file-mentions#rc6-compat` (no maintenance; upgrade to rc.7+ recommended)
+- DSH web >= 0.1.0-rc.6 (run with `npx @deepseek-ai/dsh web`)
+- **Version compatibility**: 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2) — install `main`. The settings card satisfies both the rc.6 (`id`) and rc.7+ (`key`) contracts via the dual-field registration; the `rc6-compat` tag is retired (kept only as a historical tag).
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host
 - Opening files uses the system default app / file manager (per-platform command branching)
