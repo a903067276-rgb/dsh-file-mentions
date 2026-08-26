@@ -21,9 +21,10 @@ already auto-linked by the official renderer, so this plugin leaves them alone.
 
 ![External-drive whitelist settings](assets/screenshot-settings.png)
 
-The external-drive whitelist (Settings → Plugins → file-mentions): paths outside the session
-working directory (external drives, `~/Desktop`, etc.) become clickable once added — one path
-per line. System-disk marker directories (`/System`, `/etc`) are rejected automatically.
+The external-drive whitelist (Settings → Plugins → file-mentions): **local files in your home
+directory are clickable by default**; only external drives / network volumes (e.g.
+`/Volumes/USB`) need their root added here — one path per line. System-disk marker
+directories (`/System`, `/etc`) are rejected automatically.
 
 ## Features
 
@@ -59,11 +60,10 @@ inline. The tail chip list appears automatically — no configuration.
 
 ### Paths outside the session directory (external drives, etc.)
 
-For safety, absolute/`~/` paths are only probed inside the current session's working
-directory. To make paths on an external drive (e.g. `/Volumes/USB`) or any other directory
-outside the session working dir clickable, add that directory to the **external-drive
-whitelist** in Settings → Plugins → file-mentions (one path per line). Saving takes effect
-immediately — no restart required.
+Local files inside your **home directory** (e.g. `~/Downloads`, `~/Desktop`) are clickable by
+default — no configuration needed. For paths on an **external drive / network volume** (e.g.
+`/Volumes/USB`), add that root to the **external-drive whitelist** in Settings → Plugins →
+file-mentions (one path per line). Saving takes effect immediately — no restart required.
 
 System-disk protection: whitelist roots containing system marker directories (`/System`,
 `/etc`, or `\Windows` on Windows) are rejected automatically, so a full system disk mounted
