@@ -1,6 +1,6 @@
 {
   "name": "dsh-file-mentions",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Clickable file paths in DSH replies: open files/directories from inline paths (Codex-style), with a mentioned-files chip list as fallback",
   "type": "module",
   "main": "lib/index.js",
