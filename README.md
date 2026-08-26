@@ -92,8 +92,8 @@ externally can never be whitelisted by mistake.
 
 - **Host** (`lib/index.js`): three routes — `/api/file-mentions/check` (existence check),
   `/api/file-mentions/open` (system open, `mode: open/reveal`, per-platform command) and
-  `/api/file-mentions/config` (whitelist read/write for the settings page, same-origin
-  guarded). Probe surface: absolute/`~/` paths are checked only inside the session cwd or
+  `/api/file-mentions/config` (whitelist read/write for the settings page). All three routes
+  are same-origin guarded. Probe surface: absolute/`~/` paths are checked only inside the session cwd or
   user-declared whitelist roots (stored via the official settings service — immediate
   effect, no restart); whitelist roots are protected against system disks and symlink
   escapes. Pure Node stdlib; `execFile` avoids shell injection.
