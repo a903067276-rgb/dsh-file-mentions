@@ -87,7 +87,7 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 
 - **Host**（`lib/index.js`）：三条路由 —— `/api/file-mentions/check`（存在性验证）、
   `/api/file-mentions/open`（系统打开，`mode: open/reveal`，平台命令分流）、
-  `/api/file-mentions/config`（白名单读写，设置页用，同源校验防 CSRF）。
+  `/api/file-mentions/config`（白名单读写，设置页用）。三条路由均有同源校验防 CSRF。
   探测面：绝对/`~/` 路径只在本会话 cwd 内或用户声明的白名单根内探测（白名单走官方
   settings 服务，保存即生效、无需重启）；白名单根带系统盘保护与 symlink 防逃逸。
   全部 Node 标准库，`execFile` 不经 shell 防注入。
