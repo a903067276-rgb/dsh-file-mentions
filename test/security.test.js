@@ -46,6 +46,27 @@ test('keeps same-origin requests functional', async () => {
     request('http://127.0.0.1:3080', '{"sessionId":"missing","paths":["README.md"]}'),
     res,
   )
-  assert.equal(res.status, 400)
+  // v1.0.13 空值语义：会话不存在/空参数 = "没有有效路径"，200 + valid:[]（非错误），
+  // 探测面安全语义不变（仍不响应任何路径探测）。
+  assert.equal(res.status, 200)
   assert.deepEqual(res.body, { valid: [] })
+})
+
+test('returns 200 with empty valid for null session or empty paths', async () => {
+  // 空 sessionId：不应视为请求错误（400），而是无结果（200）
+  const res1 = response()
+  await routes().get('/api/file-mentions/check').handler(
+    request('http://127.0.0.1:3080', '{"sessionId":null,"paths":["README.md"]}'),
+    res1,
+  )
+  assert.equal(res1.status, 200)
+  assert.deepEqual(res1.body, { valid: [] })
+  // 空 paths：同样无结果
+  const res2 = response()
+  await routes().get('/api/file-mentions/check').handler(
+    request('http://127.0.0.1:3080', '{"sessionId":"s1","paths":[]}'),
+    res2,
+  )
+  assert.equal(res2.status, 200)
+  assert.deepEqual(res2.body, { valid: [] })
 })

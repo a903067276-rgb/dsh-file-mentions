@@ -103,10 +103,12 @@ externally can never be whitelisted by mistake.
   entry is occupied by the official "deliverables" plugin, so DOM delegation is the only
   viable path); inline folder-icon buttons are inserted by a MutationObserver and restored
   automatically after React re-renders; a settings card (sidebar section + plugin page)
-  edits the whitelist. All scanning/decoration is **scoped to the official message area**
-  (`[data-conversation-scroll]`) and observer callbacks are rAF-coalesced — sidebars,
-  hover cards, menus and settings are never touched, and long conversations stay smooth
-  (v1.0.12).
+  edits the whitelist. Scanning/decoration is **incremental**: the observer callback only
+  handles newly-added nodes inside the official message area (`[data-conversation-scroll]`),
+  each new text is cheap-screened for path-like characters (no `/`, `~` or `\` → skipped
+  with zero regex work and zero requests), and existence checks hit only the current
+  session — conversations without paths trigger no scanning at all; sidebars, hover cards,
+  menus and settings are never touched (v1.0.13).
 
 See [docs/architecture.md](docs/architecture.md).
 
@@ -121,7 +123,7 @@ See [docs/architecture.md](docs/architecture.md).
 - Inline clicks rely on backtick-wrapped paths (the agent-output convention, same as
   Codex); **bare paths inside message text are clickable too** (decoration is
   CSS-Highlight only, zero DOM mutation; message area only — sidebars, hover cards,
-  menus and settings are never touched, v1.0.12).
+  menus and settings are never touched, v1.0.13).
 - The official "produced files" list and this plugin coexist: official wins when it has
   output, otherwise this plugin shows.
 - Windows / Linux validation via issue or PR is welcome.
