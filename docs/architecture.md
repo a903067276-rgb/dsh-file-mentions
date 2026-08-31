@@ -48,7 +48,7 @@ cwd。"盲放 /Volumes"方案被否：系统装外接盘时 /Volumes 下就是�
 设计（用户声明 = 授权，同 perm-guard trustedDirs 哲学）：
 
 - 配置入口是**设置页**（settings.section + settings.plugin.item 双注册，共用
-  SettingsCard），值存官方 settings 服务（`settingsNamespace('file-mentions')` +
+  SettingsCard），值存官方 settings 服务（命名空间字符串 `'file-mentions'` +
   `z.object({ extraProbeRoots: z.array(z.string()) })`），**每次请求现读** →
   保存即生效，无需重启，默认空 = 现状安全行为。不碰 patch.yml。
 - `isProbeable(abs, cwd, roots)`：cwd 内 → 可探测；白名单根内 → 再过两道闸：
