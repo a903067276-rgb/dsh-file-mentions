@@ -76,8 +76,8 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 ## 环境要求
 
 - DSH web（≥ 0.1.0-rc.6）（`npx @deepseek-ai/dsh web` 启动）
-- **版本兼容**（尽力兼容——设置卡片用双字段 `key`+`id` 注册，同满足 rc.6（id 契约）与 rc.7+（key 契约）；已在本地实测 rc.6/rc.8/0.1.1-rc.2，**不保证每个 DSH 版本**）：
-  - DSH 0.1.0-rc.6 及以上（含 0.1.1-rc.1/rc.2）：装 `main`（默认）。
+- **版本兼容**（尽力兼容——设置卡片用双字段 `key`+`id` 注册，同满足 rc.6（id 契约）与 rc.7+（key 契约）；已在本地实测 rc.6/rc.8/0.1.1-rc.2 与 0.1.2-alpha.2（路径可点击 + "提到的文件"面板），**不保证每个 DSH 版本**）：
+  - DSH 0.1.0-rc.6 及以上（含 0.1.1-rc.1/rc.2 与 0.1.2）：装 `main`（默认）。
   - 保守回退（升级前的最后版本）：DSH 0.1.0-rc.7/rc.8 → `v1.0.8`（`dsh plugin add github:a903067276-rgb/dsh-file-mentions#v1.0.8`）；DSH 0.1.0-rc.6 → 冻结 `rc6-compat`（不再维护）。
 - 纯 Node 标准库实现；peer 依赖（`@deepseek-ai/dsh-settings`、`@deepseek-ai/schemastery`）
   由宿主提供
