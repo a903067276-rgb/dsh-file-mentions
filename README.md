@@ -80,8 +80,9 @@ externally can never be whitelisted by mistake.
 ## Requirements
 
 - DSH web >= 0.1.0-rc.6 (run with `npx @deepseek-ai/dsh web`)
-- **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2 and 0.1.2-alpha.2 (clickable paths + "mentioned files" panel), **not guaranteed on every DSH version**):
+- **Version compatibility** (best effort — the settings card uses dual-field `key`+`id` registration to satisfy both rc.6 (`id`) and rc.7+ (`key`); verified locally on rc.6/rc.8/0.1.1-rc.2/0.1.2-alpha.2/0.1.5-rc.1 (clickable paths + "mentioned files" panel), **not guaranteed on every DSH version**):
   - DSH 0.1.0-rc.6 and newer (incl. 0.1.1-rc.1/rc.2 and 0.1.2): try `main` (default).
+  - **DSH 0.1.5-rc.1: load-verified** (the plugin is in the client bundle and `/api/file-mentions/check` responds); UI interactions were not eyeballed item by item. ⚠️ 0.1.5 ships a **narrow** built-in "clickable inline-code paths in the closing reply" (only files written via `write`/`edit`/`present` in that turn — see `dsh-client-ui-deliverables`), which partially overlaps; plain-text/bare paths, cross-turn and historical messages are still handled only by this plugin.
   - Conservative fallbacks (the last pre-0.1.1 build): DSH 0.1.0-rc.7/rc.8 → `v1.0.8` (`dsh plugin add github:a903067276-rgb/dsh-file-mentions#v1.0.8`); DSH 0.1.0-rc.6 → frozen `rc6-compat` tag (no maintenance).
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host

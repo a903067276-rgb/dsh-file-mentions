@@ -76,8 +76,9 @@ agent 回复里用反引号包路径（如 `` `~/docs/计划.md` ``）即可触�
 ## 环境要求
 
 - DSH web（≥ 0.1.0-rc.6）（`npx @deepseek-ai/dsh web` 启动）
-- **版本兼容**（尽力兼容——设置卡片用双字段 `key`+`id` 注册，同满足 rc.6（id 契约）与 rc.7+（key 契约）；已在本地实测 rc.6/rc.8/0.1.1-rc.2 与 0.1.2-alpha.2（路径可点击 + "提到的文件"面板），**不保证每个 DSH 版本**）：
+- **版本兼容**（尽力兼容——设置卡片用双字段 `key`+`id` 注册，同满足 rc.6（id 契约）与 rc.7+（key 契约）；已在本地实测 rc.6/rc.8/0.1.1-rc.2/0.1.2-alpha.2/0.1.5-rc.1（路径可点击 + "提到的文件"面板），**不保证每个 DSH 版本**）：
   - DSH 0.1.0-rc.6 及以上（含 0.1.1-rc.1/rc.2 与 0.1.2）：装 `main`（默认）。
+  - **DSH 0.1.5-rc.1：加载实测通过**（插件已进客户端 bundle、`/api/file-mentions/check` 存活）；UI 交互未逐项肉眼复测。⚠️ 0.1.5 起官方自带**窄口径**的「收尾回复内联代码路径可点」（仅限本回合 `write`/`edit`/`present` 过的文件，见官方 `dsh-client-ui-deliverables`），与本插件部分重叠；**纯文本/裸路径、跨回合与历史消息**仍只有本插件处理。
   - 保守回退（升级前的最后版本）：DSH 0.1.0-rc.7/rc.8 → `v1.0.8`（`dsh plugin add github:a903067276-rgb/dsh-file-mentions#v1.0.8`）；DSH 0.1.0-rc.6 → 冻结 `rc6-compat`（不再维护）。
 - 纯 Node 标准库实现；peer 依赖（`@deepseek-ai/dsh-settings`、`@deepseek-ai/schemastery`）
   由宿主提供
