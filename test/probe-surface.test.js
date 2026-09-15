@@ -61,7 +61,9 @@ async function checkOn(routesMap, paths) {
 test('marks home-directory files as valid without whitelist', async () => {
   const fakeHome = mkdtempSync(join(tmpdir(), 'fm-home-'))
   const oldHome = process.env.HOME
+  const oldUserProfile = process.env.USERPROFILE
   process.env.HOME = fakeHome
+  process.env.USERPROFILE = fakeHome
   const cwd = mkdtempSync(join(tmpdir(), 'fm-cwd-'))
   try {
     const homeFile = join(fakeHome, 'x.txt')
@@ -74,6 +76,7 @@ test('marks home-directory files as valid without whitelist', async () => {
     assert.ok(!body.valid.includes(tmpdir()), '无关目录不可探测')
   } finally {
     process.env.HOME = oldHome
+    process.env.USERPROFILE = oldUserProfile
     rmSync(fakeHome, { recursive: true, force: true })
     rmSync(cwd, { recursive: true, force: true })
   }
