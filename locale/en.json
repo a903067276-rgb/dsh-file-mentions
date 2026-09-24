@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "File Mentions",
+    "description": "Turn file paths in replies into clickable links that open or reveal the file."
+  }
+}

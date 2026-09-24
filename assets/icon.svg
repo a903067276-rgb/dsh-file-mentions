@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="dsh-file-mentions">
+  <rect x="1" y="1" width="22" height="22" rx="5.5" fill="#2563EB"/>
+  <g fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.85">
+    <path d="M6.2 3.2h5L14.6 6.6v9.6a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V5.2a2 2 0 0 1 2-2z"/>
+    <path d="M11.2 3.2v3.4h3.4"/>
+    <path d="M7 10.4h4.6"/>
+    <path d="M7 13H9.6"/>
+  </g>
+  <circle cx="16.6" cy="16.2" r="4.8" fill="#2563EB"/>
+  <g fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14.5 18.3 18.5 14.3"/>
+    <path d="M15.3 13.9h3.3v3.3"/>
+  </g>
+</svg>
