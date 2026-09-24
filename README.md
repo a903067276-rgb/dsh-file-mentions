@@ -87,6 +87,8 @@ externally can never be whitelisted by mistake.
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host
 - Opening files uses the system default app / file manager (per-platform command branching)
+  - ✅ **DSH 0.1.7 and later — use this release (`v1.1.0`)**: it declares `peerDependencies: {"@deepseek-ai/dsh": ">=0.1.7-rc.1 <0.2.0"}`, so a mismatched host refuses to load it with an explicit reason instead of failing quietly. Settings move to the 0.1.7 model (plugin `Config`, live-editable `.volatile()` fields), so changes apply without a restart.
+  - ⚠️ **DSH 0.1.5 and older — install the previous tag `v1.0.14`**: that line keeps the old behavior and uses no 0.1.7-only API.
 - **Maintenance policy**: this plugin keeps evolving with the latest DSH releases; compatibility with older DSH versions is best-effort only and not guaranteed going forward.
 
 ## How it works
