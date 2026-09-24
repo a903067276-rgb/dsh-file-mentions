@@ -8,16 +8,20 @@ import { apply } from '../lib/index.js'
 
 function routes(cwdDir) {
   const registered = new Map()
-  const settingsStore = { extraProbeRoots: [] }
+  // 0.1.7 起配置模型：字段随 apply 的第二参传入，volatile 字段是 { get() } 引用
+  // （宿主在设置页写入后就地更新引用，插件每次现读即拿到新值）。
+  const store = { extraProbeRoots: [] }
+  const config = { extraProbeRoots: { get: () => store.extraProbeRoots } }
   apply({
     webServer: { register: (route) => (registered.set(route.path, route), () => undefined) },
     sessions: { get: () => ({ header: { cwd: cwdDir } }), list: () => [] },
     inject: () => undefined,
+    fiber: { entry: { options: { id: 'file-mentions' } } },
     get: (name) => name === 'settings'
-      ? { get: () => settingsStore, update: async (_ns, data) => { Object.assign(settingsStore, data) } }
+      ? { update: async (_ns, data) => { Object.assign(store, data) } }
       : undefined,
     effect: (mount) => { mount() },
-  })
+  }, config)
   return registered
 }
 
