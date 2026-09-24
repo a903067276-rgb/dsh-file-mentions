@@ -1,6 +1,6 @@
 {
   "name": "dsh-file-mentions",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Clickable file paths in DSH replies: open files/directories from inline paths (Codex-style), with a mentioned-files chip list as fallback",
   "icon": "assets/icon.svg",
   "type": "module",
@@ -46,7 +46,8 @@
     "client": {
       "inject": [
         "@deepseek-ai/dsh-api-remotes",
-        "@deepseek-ai/dsh-client-ui-conversation"
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-plugin-manager"
       ],
       "platform": "web"
     }
