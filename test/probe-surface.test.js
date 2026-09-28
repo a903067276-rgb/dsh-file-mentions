@@ -12,10 +12,13 @@ function routes(cwdDir) {
   // （宿主在设置页写入后就地更新引用，插件每次现读即拿到新值）。
   const store = { extraProbeRoots: [] }
   const config = { extraProbeRoots: { get: () => store.extraProbeRoots } }
+  const webServer = { register: (route) => (registered.set(route.path, route), () => undefined) }
   apply({
-    webServer: { register: (route) => (registered.set(route.path, route), () => undefined) },
+    webServer,
     sessions: { get: () => ({ header: { cwd: cwdDir } }), list: () => [] },
-    inject: () => undefined,
+    // 插件改为「动态注入 webServer」：Web/桌面宿主有该服务 → 回调被调用、路由挂上。
+    // （headless 宿主没有该服务 → 回调不触发，见本文件末尾的用例。）
+    inject: (_deps, callback) => { callback({ webServer, effect: (mount) => { mount() } }) },
     fiber: { entry: { options: { id: 'file-mentions' } } },
     get: (name) => name === 'settings'
       ? { update: async (_ns, data) => { Object.assign(store, data) } }
@@ -111,4 +114,20 @@ test('whitelist root opens the whole subtree (subdirectory levels included)', as
     rmSync(cwd, { recursive: true, force: true })
     rmSync(root, { recursive: true, force: true })
   }
+})
+
+// ── headless 宿主（没有 webServer）────────────────────────────────────────
+// 2026-09-28（PR #13 采纳）：inject 不再静态依赖 webServer——headless 宿主没有该服务，
+// 静态声明会让插件一直 pending。现在改为动态注入：没有该服务时 apply 照常跑完、
+// 不挂路由、不抛错（插件其余功能可用）。
+test('headless 宿主（无 webServer）：apply 不抛错、不注册任何路由', () => {
+  assert.doesNotThrow(() => {
+    apply({
+      sessions: { get: () => ({ header: { cwd: '/tmp' } }), list: () => [] },
+      inject: () => undefined, // 宿主没提供 webServer → 回调永不触发
+      fiber: { entry: { options: { id: 'file-mentions' } } },
+      get: () => undefined,
+      effect: (mount) => { mount() },
+    }, {})
+  })
 })

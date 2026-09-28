@@ -5,10 +5,12 @@ import { apply } from '../lib/index.js'
 
 function routes() {
   const registered = new Map()
+  const webServer = { register: (route) => (registered.set(route.path, route), () => undefined) }
   apply({
-    webServer: { register: (route) => (registered.set(route.path, route), () => undefined) },
+    webServer,
     sessions: { get: () => undefined, list: () => [] },
-    inject: () => undefined,
+    // 动态注入 webServer：宿主有该服务时回调触发（headless 无该服务则不会触发）
+    inject: (_deps, callback) => { callback({ webServer, effect: (mount) => { mount() } }) },
     get: () => undefined,
     effect: (mount) => { mount() },
   })
