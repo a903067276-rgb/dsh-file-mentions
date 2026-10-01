@@ -39,6 +39,18 @@ directories (`/System`, `/etc`) are rejected automatically.
 Supports `~/` expansion, relative paths (resolved against the session cwd), and absolute
 paths in macOS / Linux / Windows forms. Non-existent paths silently do nothing.
 
+## Division of labour with the official features (since 2026-10-01)
+
+DSH 0.2 already ships several ways to open files. This plugin **only fills the gaps the official build leaves** instead of duplicating them:
+
+| Scenario | Owner |
+|---|---|
+| `@` completion for files/folders/sessions in the composer | **official** (`dsh-file-reference` + `ui-reference`) |
+| Markdown file links in messages (`[x](path)`, with `#L24`) | **official** (opens in the right sidebar) — this plugin **skips anything inside `<a>`**, so nothing is decorated twice |
+| The session-header "Open In…" button and the sidebar preview's "open with default app / show in folder" | **official** (`dsh-host-open-in-app`) |
+| **Bare paths in backticks** in message text (`` `~/x/y.md` ``, which the official renderer ignores) | **this plugin**: click to open with the system default app |
+| The folder icon next to a bare path (reveal in file manager) and the "📎 mentioned files" rail at the end of a reply | **this plugin** (no official counterpart) |
+
 ## Install
 
 This repository is an official **bundle plugin** (`dsh.bundle` + `dsh.client` in the root
