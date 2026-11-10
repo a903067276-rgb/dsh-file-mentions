@@ -37,7 +37,10 @@ directories (`/System`, `/etc`) are rejected automatically.
 | Inline URL | click | Browser opens it (official autolink) |
 
 Supports `~/` expansion, relative paths (resolved against the session cwd), and absolute
-paths in macOS / Linux / Windows forms. Non-existent paths silently do nothing.
+paths in macOS / Linux / Windows forms. Common code/document extensions are recognized —
+including `ets`, `kt`, `swift`, `dart`, `mjs`/`cjs`, `json5`, `proto`, `graphql` — as well
+as extension-less names such as `Makefile`, `Dockerfile`, `.gitignore` and `LICENSE`.
+Non-existent paths silently do nothing.
 
 ## Division of labour with the official features (since 2026-10-01)
 
@@ -102,8 +105,8 @@ externally can never be whitelisted by mistake.
 - Pure Node stdlib implementation — peer dependencies (`@deepseek-ai/dsh-settings`,
   `@deepseek-ai/schemastery`) are provided by the host
 - Opening files uses the system default app / file manager (per-platform command branching)
-  - ✅ **DSH 0.1.7 and later — use this release (`v1.2.2`)**: it declares `peerDependencies: {"@deepseek-ai/dsh": "^0.1.7-rc.1 || ^0.2.0-rc.1"}`, so a mismatched host refuses to load it with an explicit reason instead of failing quietly. Settings move to the 0.1.7 model (plugin `Config`, live-editable `.volatile()` fields), so changes apply without a restart.
-  - ✅ **DSH 0.2.0-rc.1 — verified compatible**: the peer range now covers both lines (`^0.1.7-rc.1 || ^0.2.0-rc.1`) and `dsh.compatibility.dshReleases` adds `"0.2.0-rc.1": "compatible"` — verified on a real 0.2.0-rc.1 host and a shadow instance. Since 0.2 the host gates profile bundles on peer compatibility and **skips the whole bundle** when the declared range misses the running host, so this range is what keeps the plugin loading.
+  - ✅ **DSH 0.1.7 and later — use this release (`v1.2.4`)**: it declares `peerDependencies: {"@deepseek-ai/dsh": "^0.1.7-rc.1 || ^0.2.0-rc.1"}`, so a mismatched host refuses to load it with an explicit reason instead of failing quietly. Settings move to the 0.1.7 model (plugin `Config`, live-editable `.volatile()` fields), so changes apply without a restart.
+  - ✅ **DSH 0.2.x — verified compatible**: the peer range covers both lines (`^0.1.7-rc.1 || ^0.2.0-rc.1`) and `dsh.compatibility.dshReleases` lists `"0.2.0-rc.1"`, `"0.2.1-rc.1"`, `"0.2.1-rc.2"` and `"0.2.2-rc.1"` as `compatible` — verified on real 0.2.0-rc.1 / 0.2.2-rc.1 hosts and a shadow instance. Since 0.2 the host gates profile bundles on peer compatibility and **skips the whole bundle** when the declared range misses the running host, so this range is what keeps the plugin loading.
   - ⚠️ **DSH 0.1.5 and older — install the previous tag `v1.0.14`**: that line keeps the old behavior and uses no 0.1.7-only API.
   - ⛔ **Old plugin releases (up to `v1.0.14`) are not supported on 0.1.7** — the external-disk whitelist silently becomes empty (`settings.get` is gone). Upgrade the plugin together with the host.
 - **Maintenance policy**: this plugin keeps evolving with the latest DSH releases; compatibility with older DSH versions is best-effort only and not guaranteed going forward.

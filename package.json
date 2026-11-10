@@ -1,6 +1,6 @@
 {
   "name": "dsh-file-mentions",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Clickable file paths in DSH replies: open files/directories from inline paths (Codex-style), with a mentioned-files chip list as fallback",
   "icon": "assets/icon.svg",
   "type": "module",
@@ -48,7 +48,8 @@
         "0.2.0-rc.1": "compatible",
         "0.2.0-rc.2": "compatible",
         "0.2.1-rc.1": "compatible",
-        "0.2.1-rc.2": "compatible"
+        "0.2.1-rc.2": "compatible",
+        "0.2.2-rc.1": "compatible"
       }
     },
     "bundle": {
